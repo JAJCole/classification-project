@@ -20,12 +20,12 @@ Going into the project with churn and its contributing factors as the primary ta
 * Split stratification left ambiguous per use. 
 * Model potential relationships with the use of visuals and graphs.
 * Use various statistical tests and models to analyze combinations of variables against the target churn.
- - Hypotheses to test:
- * There is no significance between contract type and churn
- * There is no significance between single households (M&F) with no dependents and churn.
- * Tenure is unrelated to churn.
- * Monthly bill price is unrelated to churn.
- * Product subscriptions are unrelated to churn.
+* Hypotheses to test:
+    * There is no significance between contract type and churn
+    * There is no significance between single households (M&F) with no dependents and churn.
+    * Tenure is unrelated to churn.
+    * Monthly bill price is unrelated to churn.
+    * Product subscriptions are unrelated to churn.
 * After iterating models and selecting those with the most optimal evaluation metrics, evaluate with the best on test data.
 * Synthesize exploration into actionable intelligence for shareholders.
 
@@ -42,5 +42,15 @@ Going into the project with churn and its contributing factors as the primary ta
 
 
 ## Reproduction of Results:
+
+
+
+
+
+## Analysis Results:
+
+
+
+## Reccomendations:
 
 
