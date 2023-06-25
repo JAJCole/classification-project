@@ -51,9 +51,10 @@ def prep_telco():
                             ]],
                               drop_first=True)
     telco = pd.concat( [telco, dummy_df], axis=1 )
-    
+# below is an edit to otherwise functioning fx to drop original non-encoded features
+    telco = telco.drop(columns=['gender','partner','dependents','phone_service','multiple_lines','online_security','online_backup','device_protection','tech_support','streaming_tv','streaming_movies','paperless_billing','internet_service_type','payment_type'])
+    telco = telco.drop(columns=['churn','contract_type'])
     return telco
-
 
 # Split
 from sklearn.model_selection import train_test_split
