@@ -8,9 +8,9 @@ import env
 def get_telco_data():
     telco_csv = 'telco_churn.csv'
     url = get_db_url('telco_churn')
-    if os.path.isfile(telco_csv):
+    if os.path.isfile(telco_csv):       # Locating csv file if path exists
         return pd.read_csv(telco_csv)
-    else:
+    else:                               # Else, query MySQL using env credentials
         SQL = '''
     select * from customers
     join contract_types using (contract_type_id)
@@ -18,19 +18,16 @@ def get_telco_data():
     join payment_types using (payment_type_id)
     '''
         df_telco = pd.read_sql(SQL, url)
-        df_telco.to_csv(telco_csv)
+        df_telco.to_csv(telco_csv)      # create csv file
         return df_telco
-
-
-# be sure to join contract_types, internet_service_types, payment_types tables with the customers table from above
-# a general edit of previous acquire and following prepare needs to occur.
 
 
 # fx for prep_telco
 def prep_telco():
-    telco = get_telco_data()
+    telco = get_telco_data()  # create variable for df
     telco = telco.drop(columns=['internet_service_type_id', 'contract_type_id', 'payment_type_id','Unnamed: 0'])
-
+    # above removes unneccessary columns.
+    # below encodes relevant categorical columns
     telco['gender_encoded'] = telco.gender.map({'Female': 1, 'Male': 0})
     telco['partner_encoded'] = telco.partner.map({'Yes': 1, 'No': 0})
     telco['dependents_encoded'] = telco.dependents.map({'Yes': 1, 'No': 0})
@@ -50,13 +47,14 @@ def prep_telco():
                               'payment_type'
                             ]],
                               drop_first=True)
-    telco = pd.concat( [telco, dummy_df], axis=1 )
-# below is an edit to otherwise functioning fx to drop original non-encoded features
+    telco = pd.concat( [telco, dummy_df], axis=1 )     # add encoded variables to dataframe
+# below to drop original non-encoded features
     telco = telco.drop(columns=['gender','partner','dependents','phone_service','multiple_lines','online_security','online_backup','device_protection','tech_support','streaming_tv','streaming_movies','paperless_billing','internet_service_type','payment_type'])
     telco = telco.drop(columns=['churn','contract_type'])
     return telco
 
 # Split
+# random state 123, stratify ambiguous, split approx. 60/20/20
 from sklearn.model_selection import train_test_split
 # fx for train-test-split of telco_data
 def my_train_test_split(df, target=None):
