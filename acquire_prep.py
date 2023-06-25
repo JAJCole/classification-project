@@ -24,10 +24,10 @@ def get_telco_data():
 
 # fx for prep_telco
 def prep_telco():
-    telco = get_telco_data()  # create variable for df
+    telco = get_telco_data()            # create variable for df
     telco = telco.drop(columns=['internet_service_type_id', 'contract_type_id', 'payment_type_id','Unnamed: 0'])
     # above removes unneccessary columns.
-    # below encodes relevant categorical columns
+    # below encodes relevant categorical columns, with column name and a map of categorical options to numeric one.
     telco['gender_encoded'] = telco.gender.map({'Female': 1, 'Male': 0})
     telco['partner_encoded'] = telco.partner.map({'Yes': 1, 'No': 0})
     telco['dependents_encoded'] = telco.dependents.map({'Yes': 1, 'No': 0})
