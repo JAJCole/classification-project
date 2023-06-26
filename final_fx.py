@@ -301,15 +301,13 @@ def model_fx_v():
 # rf won highest accuracy, so test:
 def model_fx_t():
     df = prep_telco()
-    df = df[['contract_type_One year', 'contract_type_Two year', 'churn_encoded', 'tenure', 'internet_service_type_Fiber optic']]
+    df_t = df[['contract_type_One year', 'contract_type_Two year', 'churn_encoded', 'tenure', 'internet_service_type_Fiber optic','customer_id']]
     #my_train_test_split(df, target='churn_encoded')
-    train, validate, test = my_train_test_split(df,'churn_encoded')
+    train, validate, test = my_train_test_split(df_t,'churn_encoded')
     # this split removes further objects from train,val, test for logistic regression error avoidance
-    x_train = train.drop(columns=['churn_encoded']).dropna()
-    y_train = train.churn_encoded.dropna()
-    x_val = validate.drop(columns=['churn_encoded']).dropna()
-    y_val = validate.churn_encoded
-    x_test = test.drop(columns=['churn_encoded']).dropna()
+    x_test = test
+    customer_ids = x_test['customer_id']  # Store customer IDs
+    x_test = test.drop(columns=['churn_encoded','customer_id']).dropna()
     y_test = test.churn_encoded
     rf = RandomForestClassifier(bootstrap=True, 
                             class_weight=None, 
@@ -322,7 +320,11 @@ def model_fx_t():
     # make predictions
     y_pred = rf.predict(x_test)
     # estimate probability of survive
-    y_pred_proba = rf.predict_proba(x_test)
+    y_pred_proba = rf.predict_proba(x_test)[:, 1]  # Select positive class probabilities (churn)
+    # create df for predictions/id csv
+    predictions_df = pd.DataFrame({'customer_id': customer_ids, 'probability_of_churn': y_pred_proba, 'prediction_of_churn': y_pred})
+    predictions_df.to_csv('predictions.csv', index=False)
+    # display report
     print('Accuracy of random forest classifier on training set: {:.2f}'
      .format(rf.score(x_test, y_test)))
     print(classification_report(y_test, y_pred))
