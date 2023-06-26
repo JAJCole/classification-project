@@ -258,7 +258,8 @@ def model_fx_v():
     y_test = test.churn_encoded
     # log. reg model
     reg_o = LogisticRegression()
-    reg_o.fit(x_val, y_val)
+    ## *
+    reg_o.fit(x_train, y_train)
     y_pred = reg_o.predict(x_val)
     y_pred_proba = reg_o.predict_proba(x_val)
     print('Accuracy of Log. Reg. object on train set: {:.3f}'
@@ -266,7 +267,7 @@ def model_fx_v():
     print(classification_report(y_val, y_pred))
     # dt model
     tree = DecisionTreeClassifier(max_depth=3, random_state=123)
-    tree = tree.fit(x_val, y_val)
+    tree = tree.fit(x_train, y_train)
     y_pred = tree.predict(x_val)
     print('Accuracy of DT object on train set: {:.3f}'.format(tree.score(x_train, y_train)))
     print(classification_report(y_val, y_pred))
@@ -278,7 +279,7 @@ def model_fx_v():
                             n_estimators=100,
                             max_depth=20, 
                             random_state=123)
-    rf.fit(x_val, y_val)
+    rf.fit(x_train, y_train)
     # make predictions
     y_pred = rf.predict(x_val)
     # estimate probability of survive
@@ -288,7 +289,7 @@ def model_fx_v():
     print(classification_report(y_val, y_pred))
     # KNN
     knn = KNeighborsClassifier(n_neighbors=10)
-    knn.fit(x_val, y_val)
+    knn.fit(x_train, y_train)
     y_pred = knn.predict(x_val)
     y_pred_proba = knn.predict_proba(x_val)
     print('Accuracy of KNN classifier on training set: {:.2f}'
@@ -307,6 +308,8 @@ def model_fx_t():
     # this split removes further objects from train,val, test for logistic regression error avoidance
     x_test = test
     customer_ids = x_test['customer_id']  # Store customer IDs
+    x_train = train.drop(columns=['churn_encoded','customer_id']).dropna()
+    y_train = train.churn_encoded.dropna()
     x_test = test.drop(columns=['churn_encoded','customer_id']).dropna()
     y_test = test.churn_encoded
     rf = RandomForestClassifier(bootstrap=True, 
@@ -316,7 +319,7 @@ def model_fx_t():
                             n_estimators=100,
                             max_depth=20, 
                             random_state=123)
-    rf.fit(x_test, y_test)
+    rf.fit(x_train, y_train)
     # make predictions
     y_pred = rf.predict(x_test)
     # estimate probability of survive
