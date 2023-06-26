@@ -3,3 +3,5 @@ env.py
 .ipynb_checkpoints/
 __pycache__
 *.csv
+
+!/telco_churn/specific_file.csv
