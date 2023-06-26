@@ -42,15 +42,26 @@ Going into the project with churn and its contributing factors as the primary ta
 
 
 ## Reproduction of Results:
+* clone github repo
+* download .csv of telco_data (for no mysql) included in repo
+* run final_report notebook within an environment. 
 
 
+### Analysis Results:
+##### Drivers:
+* tenure
+* contract type
+* monthly bill higher than average (whether theyre paying for fiber optic included)
 
-
-
-## Analysis Results:
-
-
+###### Models:
+* RF best prediction tool currently, KNN close second.
+* Log. Reg. could outperform with more manipulation.
+* RF performs best on train(80%) and validate(82%) sets. 
+* KNN is a close second. (78%)/(80%). Adjusting hyperparameters might yield a more accurate model than RF. 
+* Logisitic regression is powerful and would no doubt outpace the others with more tuning of the features.
+* RF model performs at 83% Accuracy on test set. 
 
 ## Reccomendations:
+* Upgrade fiber optic service quality or lower price.
 
 
