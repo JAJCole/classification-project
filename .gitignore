@@ -4,4 +4,4 @@ env.py
 __pycache__
 *.csv
 
-!/telco_churn/specific_file.csv
+!/reproduction_data/telco_churn.csv
