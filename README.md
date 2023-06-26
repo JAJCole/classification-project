@@ -2,10 +2,10 @@
 Demo on industrial application of classification ML models.
 
 ## Description:
-Telco is a telecommunications company offering various products. This project uses information about this companies customers, such as various demographic data and information about the services provided to them. 
+Telco is a telecommunications company offering various products. This project uses information about this companies customers, such as various demographic data and information about the services provided to them to help predict churn. 
 
 ## Goals:
-The goal of this project is to determine the drivers of churn, or how whether a customer stays or goes, from Telco customer data. After exploring the company data to find drivers of churn, a ML model to make reccomendations to the shareholders of Telco will created for generating actionable intelligence on customer churn.
+The goal of this project is to determine the drivers of churn, or how whether a customer stays or goes, from Telco customer data. After exploring the company data to find drivers of churn, a ML model is made to make reccomendations to the shareholders of Telco, created for generating actionable intelligence on customer churn.
 
 ## Beginning Assumptions:
 Going into the project with churn and its contributing factors as the primary target, I will assess demographic data as well as details of the customers contracts.
