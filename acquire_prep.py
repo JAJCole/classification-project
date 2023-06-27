@@ -51,8 +51,12 @@ def prep_telco():
 # below to drop original non-encoded features
     telco = telco.drop(columns=['gender','partner','dependents','phone_service','multiple_lines','online_security','online_backup','device_protection','tech_support','streaming_tv','streaming_movies','paperless_billing','internet_service_type','payment_type'])
     telco = telco.drop(columns=['churn','contract_type'])
+    telco['total_charges'] = pd.to_numeric(telco['total_charges'], errors='coerce')
+    telco.dropna(subset=['total_charges'], inplace=True)
     return telco
 
+
+#
 # Split
 # random state 123, stratify ambiguous, split approx. 60/20/20
 from sklearn.model_selection import train_test_split
